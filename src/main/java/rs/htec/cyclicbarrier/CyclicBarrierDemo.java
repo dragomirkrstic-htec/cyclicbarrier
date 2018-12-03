@@ -13,7 +13,6 @@ public class CyclicBarrierDemo {
         for (int i = 0; i < NUMBER_OF_WORKERS; i++) {
             Thread t = new Thread(new WorkerThread(cyclicBarrier, sd));
             t.start();
-            t.join();
         }
     }
 }

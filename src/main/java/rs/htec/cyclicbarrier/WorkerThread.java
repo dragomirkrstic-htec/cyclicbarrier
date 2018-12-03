@@ -9,13 +9,14 @@ public class WorkerThread implements Runnable {
     private final CyclicBarrier cyclicBarrier;
     private final SharedData sharedData;
 
-    public WorkerThread(CyclicBarrier cyclicBarrier, SharedData sharedData) {
-        this.cyclicBarrier = cyclicBarrier;
+    public WorkerThread(CyclicBarrier awaitBarrier, SharedData sharedData) {
+        this.cyclicBarrier = awaitBarrier;
         this.sharedData = sharedData;
     }
 
     @Override
     public void run() {
+
         Random random = new Random();
         for (int i = 0; i < 10; i++) {
             Integer number = random.nextInt(100);
