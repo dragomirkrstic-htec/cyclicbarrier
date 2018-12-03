@@ -7,16 +7,17 @@ import java.util.concurrent.CyclicBarrier;
 public class WorkerThread implements Runnable {
 
     private final CyclicBarrier cyclicBarrier;
+    private final CyclicBarrier waitBarrier;
     private final SharedData sharedData;
 
-    public WorkerThread(CyclicBarrier awaitBarrier, SharedData sharedData) {
+    public WorkerThread(CyclicBarrier awaitBarrier, CyclicBarrier waitBarrier, SharedData sharedData) {
         this.cyclicBarrier = awaitBarrier;
         this.sharedData = sharedData;
+        this.waitBarrier = waitBarrier;
     }
 
     @Override
     public void run() {
-
         Random random = new Random();
         for (int i = 0; i < 10; i++) {
             Integer number = random.nextInt(100);

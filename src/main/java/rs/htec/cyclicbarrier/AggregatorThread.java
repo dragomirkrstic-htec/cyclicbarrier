@@ -1,11 +1,17 @@
 package rs.htec.cyclicbarrier;
 
+import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.CyclicBarrier;
+
 public class AggregatorThread implements Runnable {
 
     private final SharedData sharedData;
+    private final CyclicBarrier finishBarrier;
 
-    public AggregatorThread(SharedData sharedData) {
+    public AggregatorThread(SharedData sharedData, CyclicBarrier finishBarrier) {
         this.sharedData = sharedData;
+        this.finishBarrier = finishBarrier;
+
     }
 
     @Override
@@ -16,5 +22,12 @@ public class AggregatorThread implements Runnable {
             sum += number;
         }
         System.out.println(Thread.currentThread().getName() + " | Result: " + sum);
+        try {
+            finishBarrier.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (BrokenBarrierException e) {
+            e.printStackTrace();
+        }
     }
 }
